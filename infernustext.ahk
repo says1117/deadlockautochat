@@ -40,6 +40,9 @@ global lastTauntTime := 0
 global lastPixelMatch := false
 ; ───────────────────────────────────────────────────────────────────────────────
 
+; Set Windows timer resolution to 1ms for precise short sleeps
+DllCall("winmm\timeBeginPeriod", "UInt", 1)
+
 ; Use absolute screen coordinates for pixel reading
 CoordMode("Pixel", "Screen")
 
@@ -109,10 +112,12 @@ ColorMatches(color, target, tolerance) {
 ; Opens chat with Enter, types the message, closes with Enter
 SendTaunt(msg) {
     ; this is the fastest ive used that actually flows with the gameplay and doesnt hiccup!
-    Send("+{Enter}")
-    Sleep(26)
+    ; DISCLAIMER: NEED TO SET OTHER ALL CHAT BIND TO "Enter" KEY OR SMTH SIMILAR BUT YOU GOTTA DELETE THE CURRENT KEY BIND
+    ; i have all chat set to "Enter" and team chat now set to "Shift+Enter" because input time took too long
+    Send("{Enter}")
+    Sleep(23)
     SendText(msg)
-    Sleep(26)
+    Sleep(23)
     Send("{Enter}")
 }
 ; ───────────────────────────────────────────────────────────────────────────────
